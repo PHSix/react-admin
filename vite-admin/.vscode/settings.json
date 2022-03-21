@@ -1,0 +1,9 @@
+{
+    "editor.tabSize": 2,
+    "editor.wordWrap": "on",
+    "emmet.excludeLanguages": [
+        "markdown",
+        "typescript", 
+        "typescriptreact"
+    ]
+}

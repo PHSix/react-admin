@@ -1,0 +1,12 @@
+{
+  "type": "mysql",
+  "host": "47.108.204.16",
+  "port": 3306,
+  "username": "root",
+  "password": "phsix",
+  "database": "react_admin",
+  "synchronize": true,
+  "cli": {
+    "entitiesDir": "src/entity"
+  }
+}
