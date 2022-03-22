@@ -8,6 +8,10 @@ import { getManager, EntityManager, Repository } from "typeorm";
 let tm: EntityManager;
 let rs: Repository<Staff>;
 
+setTimeout(()=> {
+	tm = getManager();
+	rs = tm.getRepository(Staff);
+}, 1000)
 const initial = function () {
 	if (!rs) {
 		tm = getManager();
@@ -38,7 +42,7 @@ export const createStaff = async function (staff: Staff): Promise<void> {
  * @param staff 员工信息
  * @returns 存在返回true,不存在返回false
  */
-export const staffExist = async function (staff: Staff) : Promise<boolean> {
+export const staffExist = async function (staff: Staff): Promise<boolean> {
 	initial();
 	const queryRes = await rs.findOne(staff);
 	if (queryRes) return true;
@@ -48,7 +52,7 @@ export const staffExist = async function (staff: Staff) : Promise<boolean> {
 /**
  * 通过员工id判断员工是否存在
  * @param id 员工id
- * @returns 
+ * @returns
  */
 export const staffExistById = async function (id: number): Promise<boolean> {
 	initial();
@@ -65,7 +69,7 @@ export const staffExistById = async function (id: number): Promise<boolean> {
  */
 export const dropStaffById = async function (id: number) {
 	initial();
-	await rs.delete({id});
+	await rs.delete({ id });
 };
 
 /**
@@ -75,5 +79,25 @@ export const dropStaffById = async function (id: number) {
  */
 export const alterStaff = async function (id: number, staff: Staff) {
 	initial();
-	await rs.update({id}, staff);
+	await rs.update({ id }, staff);
+};
+
+/**
+ * 获取当前数据库里面所有员工的数量
+ * @returns 所有员工的数量
+ */
+export const countStaffs = async function () {
+	const res = await getAllStaffs();
+	return res.length;
+};
+
+/**
+ * 获取已经到达的所有员工的数量
+ * @returns 
+ */
+export const countStaffsHasClock = async function () {
+	const res = await getAllStaffs();
+	return res.filter((item) => {
+		return item.isClock;
+	}).length;
 };

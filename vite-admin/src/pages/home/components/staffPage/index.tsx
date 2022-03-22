@@ -104,6 +104,7 @@ export const StaffPage: FC = function () {
       }}
     >
       <div style={{ display: "flex" }}>
+        <div>员工面板</div>
         <div style={{ flex: 1 }}></div>
         <Button
           type="primary"

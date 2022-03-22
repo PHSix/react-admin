@@ -29,7 +29,7 @@ const useInitHome = function () {
     const { isLogin } = getStorageState();
     if (isLogin == false) {
       navigator("/login", { replace: true });
-      return
+      return;
     }
     if (location.pathname === "/") {
       navigator("/dashboard", { replace: true });
@@ -43,7 +43,7 @@ const useInitHome = function () {
  */
 const useKey = function () {
   const location = useLocation();
-  let key = 1;
+  let key = sideRoutes.length - 1;
   if (location.pathname !== "/" + sideRoutes[key].path) {
     for (let i = 0; i < sideRoutes.length; i++) {
       if ("/" + sideRoutes[i].path === location.pathname) {
@@ -62,7 +62,6 @@ export const HomePage: FC = function () {
   const { username } = getStorageState();
   const quit = function () {
     clearStorageState();
-    console.log("I'm called");
     navigator("/login");
   };
   return (
@@ -87,7 +86,9 @@ export const HomePage: FC = function () {
                 key={idx}
                 icon={route.icon}
                 onClick={() => {
-                  navigator("/" + route.path);
+                  if (idx !== sideRoutes.length - 1) {
+                    navigator("/" + route.path);
+                  }
                 }}
               >
                 {route.name}
@@ -126,8 +127,11 @@ export const HomePage: FC = function () {
           </div>
         </Header>
         {/* content body */}
-        <Content style={{ padding: "24px 16px 0" }} className="bg-gray-200">
-          <div className="bg-white" style={{ padding: 24, minHeight: 360 }}>
+        <Content style={{ padding: "24px 16px" }} className="bg-gray-200">
+          <div
+            className="bg-white h-full"
+            style={{ padding: 24, minHeight: 360 }}
+          >
             <Outlet />
           </div>
         </Content>

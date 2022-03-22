@@ -89,6 +89,7 @@ export const AdminPage: FC = function () {
       }}
     >
       <div style={{ display: "flex" }}>
+        <div>管理员面板</div>
         <div style={{ flex: 1 }}></div>
         <Button
           type="primary"
