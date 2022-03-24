@@ -1,5 +1,5 @@
 import type { Admin } from "@/model/admin";
-import { axiosApi, axiosReq } from "@/utils/http";
+import { axiosReq } from "@/utils/http";
 import { Button, Layout, Table } from "antd";
 import type { ColumnType } from "antd/lib/table";
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";

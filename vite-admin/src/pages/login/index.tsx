@@ -1,11 +1,11 @@
-import { Input, Form, Button } from "antd";
+import { Input, Form, Button, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
-import React, { FC } from "react";
+import { FC, useCallback } from "react";
 import { setStorageState } from "../../utils/storage";
 import md5 from "md5";
 import { useNavigate } from "react-router-dom";
-import { axiosApi } from "@/utils/http";
+import { axiosReq } from "@/utils/http";
 
 interface FormData {
   username: string;
@@ -13,33 +13,40 @@ interface FormData {
 }
 
 /**
+ * 登录框
  * @returns
  */
 const Panel: FC = function () {
   const navigator = useNavigate();
-  const onFinsh = function (form: FormData) {
+  const onFinsh = useCallback(function (form: FormData) {
     const username = form.username;
     const password = md5(form.password);
-    axiosApi({
+    axiosReq({
       method: "POST",
-      baseURL: "/api/login",
-      body: {
+      url: "/login",
+      data: {
         name: username,
         password: password,
       },
     })
       .then((res) => {
-        if (!res) return;
         const token = res.data.token;
-        setStorageState({ username, password, token, isLogin: "true" });
-        console.log("successfull login");
+        setStorageState({
+          password,
+          username,
+          isLogin: "true",
+          token: token,
+        });
         navigator("/");
+        console.log("successfull login");
       })
       .catch((err) => {
-        // TODO: 登录错误处理
-        console.log(err);
+        if (err.response.status === 400) {
+          message.error("账号密码错误，请重新输入");
+        }
       });
-  };
+  }, []);
+
   return (
     <section className="w-2/7 bg-white p-4 rounded-md shadow-xl">
       <h1 className="text-xl text-center">LOGIN</h1>
@@ -74,6 +81,10 @@ const Panel: FC = function () {
   );
 };
 
+/**
+ * 登录页面
+ * @returns
+ */
 export const LoginPage: FC = function () {
   return (
     <main

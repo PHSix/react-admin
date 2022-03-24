@@ -1,24 +1,17 @@
 import { Button, Layout, Menu } from "antd";
 import { GithubOutlined, MenuFoldOutlined } from "@ant-design/icons";
 import { Header, Content } from "antd/lib/layout/layout";
-import { FC, useState } from "react";
+import type { FC } from "react";
+import { useState } from "react";
 import { useEffect } from "react";
-import {
-  Outlet,
-  useLocation,
-  useNavigate,
-  useNavigationType,
-} from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { sideRoutes } from "../../routes";
-import {
-  clearStorageState,
-  getStorageState,
-  setStorageState,
-} from "../../utils/storage";
+import { clearStorageState, getStorageState } from "../../utils/storage";
+import { axiosReq } from "@/utils/http";
 
 const { Sider } = Layout;
 /**
- * 判断是否有权限进入
+ * 判断是否有权限进入(通过请求后端API)
  * 当匹配到路由为`/`的时候进行路由重定向到`/dashboard`
  */
 
@@ -34,6 +27,16 @@ const useInitHome = function () {
     if (location.pathname === "/") {
       navigator("/dashboard", { replace: true });
     }
+    axiosReq({
+      method: "GET",
+      url: "/vaild",
+    }).catch((err) => {
+      console.log("登录错误", err);
+      if (err.response.status === 401) {
+        clearStorageState();
+        navigator("/login");
+      }
+    });
   }, []);
 };
 
