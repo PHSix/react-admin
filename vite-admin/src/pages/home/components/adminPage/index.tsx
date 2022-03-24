@@ -1,6 +1,6 @@
 import type { Admin } from "@/model/admin";
 import { axiosReq } from "@/utils/http";
-import { Button, Layout, Table } from "antd";
+import { Button, Layout, Table, message } from "antd";
 import type { ColumnType } from "antd/lib/table";
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AddModal } from "./components/add";
@@ -172,7 +172,6 @@ export const AdminPage: FC = function () {
             url: "/admin",
             data: t,
           }).then((res) => {
-            // TODO: 更新处理
             t.password = null;
             setList([
               ...list.filter((item) => {
@@ -180,6 +179,8 @@ export const AdminPage: FC = function () {
               }),
               t,
             ]);
+          }).catch(err => {
+            message.error("权限不足");
           });
         }}
       />

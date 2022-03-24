@@ -31,7 +31,6 @@ const useInitHome = function () {
       method: "GET",
       url: "/vaild",
     }).catch((err) => {
-      console.log("登录错误", err);
       if (err.response.status === 401) {
         clearStorageState();
         navigator("/login");
@@ -57,6 +56,10 @@ const useKey = function () {
   return key;
 };
 
+/**
+ * 主页框架定义，包含side和navigator
+ * @returns 
+ */
 export const HomePage: FC = function () {
   useInitHome();
   const key = useKey();

@@ -2,6 +2,7 @@ lockfileVersion: 5.3
 
 specifiers:
   '@ant-design/icons': ^4.7.0
+  '@types/echarts': ^4.9.13
   '@types/md5': ^2.3.2
   '@types/node': ^17.0.21
   '@types/react': ^17.0.33
@@ -32,6 +33,7 @@ dependencies:
   windicss: 3.5.1
 
 devDependencies:
+  '@types/echarts': 4.9.13
   '@types/md5': 2.3.2
   '@types/node': 17.0.21
   '@types/react': 17.0.40
@@ -410,6 +412,12 @@ packages:
       picomatch: 2.3.1
     dev: true
 
+  /@types/echarts/4.9.13:
+    resolution: {integrity: sha512-xqZ21MXOBU5i+BywnxAi0He+M6lsRtANBvbqJHmqM8T64Lx7azHJWbv/vSKVJfEbv3XyYpxeDhpV7gFi5mfgeA==}
+    dependencies:
+      '@types/zrender': 4.0.1
+    dev: true
+
   /@types/md5/2.3.2:
     resolution: {integrity: sha512-v+JFDu96+UYJ3/UWzB0mEglIS//MZXgRaJ4ubUPwOM0gvLc/kcQ3TWNYwENEK7/EcXGQVrW8h/XqednSjBd/Og==}
     dev: true
@@ -438,6 +446,10 @@ packages:
 
   /@types/scheduler/0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
+    dev: true
+
+  /@types/zrender/4.0.1:
+    resolution: {integrity: sha512-IyTRf30jPOXK1+1RChI/78U6aV9hyWYf/vhL96Vt66oDz9es/BDjeKpvbNZSOHVA7zAReOwJcmdZS5AGAqhygw==}
     dev: true
 
   /@vitejs/plugin-react/1.2.0:

@@ -3,6 +3,7 @@ import { BulbOutlined, DashboardOutlined } from "@ant-design/icons";
 import CommentOutlined from "@ant-design/icons/lib/icons/CommentOutlined";
 import { Layout } from "antd";
 import React, { FC, useEffect, useState } from "react";
+import { RecentChart } from "./charts";
 import { IconPanel } from "./iconPanel";
 
 interface Status {
@@ -43,15 +44,16 @@ export const Dashboard: FC = function () {
     });
   }, []);
   return (
-    <Layout
+    <div
       style={{
         backgroundColor: "transparent",
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        alignItems: "start"
+        alignItems: "start",
       }}
     >
+      <RecentChart />
       <div
         className="grid-cols-3 grid"
         style={{
@@ -95,6 +97,6 @@ export const Dashboard: FC = function () {
           }
         ></IconPanel>
       </div>
-    </Layout>
+    </div>
   );
 };
