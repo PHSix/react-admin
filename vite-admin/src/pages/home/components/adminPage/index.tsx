@@ -3,10 +3,12 @@ import { axiosReq } from "@/utils/http";
 import { Button, Layout, Table, message } from "antd";
 import type { ColumnType } from "antd/lib/table";
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { AddModal } from "./components/add";
 import { DeleteModal } from "./components/delete";
 import { UpdateModal } from "./components/update";
 export const AdminPage: FC = function () {
+  const navigator = useNavigate();
   const cur = useRef({
     name: "",
     password: "",
@@ -76,11 +78,17 @@ export const AdminPage: FC = function () {
     axiosReq({
       method: "GET",
       url: "/admin",
-    }).then((res) => {
-      const admins: Admin[] = res.data.admins;
-      admins.forEach((item, idx) => (item.key = idx));
-      setList(admins);
-    });
+    })
+      .then((res) => {
+        const admins: Admin[] = res.data.admins;
+        admins.forEach((item, idx) => (item.key = idx));
+        setList(admins);
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          navigator("/login", { replace: true });
+        }
+      });
   }, []);
   return (
     <Layout
@@ -171,19 +179,23 @@ export const AdminPage: FC = function () {
             method: "PUT",
             url: "/admin",
             data: t,
-          }).then((res) => {
-            t.password = null;
-            setList([
-              ...list.filter((item) => {
-                return item.id !== t.id;
-              }),
-              t,
-            ]);
-          }).catch(err => {
-            message.error("权限不足");
-          });
+          })
+            .then((res) => {
+              t.password = null;
+              setList([
+                ...list.filter((item) => {
+                  return item.id !== t.id;
+                }),
+                t,
+              ]);
+            })
+            .catch((err) => {
+              message.error("权限不足");
+            });
         }}
       />
     </Layout>
   );
 };
+
+export default AdminPage

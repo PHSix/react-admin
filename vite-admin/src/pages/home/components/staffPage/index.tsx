@@ -194,3 +194,5 @@ export const StaffPage: FC = function () {
     </Layout>
   );
 };
+
+export default StaffPage

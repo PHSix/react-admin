@@ -100,3 +100,5 @@ export const Dashboard: FC = function () {
     </div>
   );
 };
+
+export default Dashboard
